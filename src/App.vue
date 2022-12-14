@@ -1,16 +1,19 @@
 <template>
- <div class=""> <ArTest/>
+ <div class=""> <ArTest v-if="false"/>
+ <ArTest2 v-if="true"/>
  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import ArTest from "./components/ArTest.vue";
+import ArTest2 from "./components/ArTest2.vue";
 
 export default defineComponent({
   name: "App",
   components: {
     ArTest,
+    ArTest2,
   },
 });
 </script>
