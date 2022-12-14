@@ -1,5 +1,5 @@
 <template>
- <div class=""> <ArTest v-if="false"/>
+ <div class="">
  <ArTest2 v-if="true"/>
  </div>
 </template>
@@ -12,7 +12,7 @@ import ArTest2 from "./components/ArTest2.vue";
 export default defineComponent({
   name: "App",
   components: {
-    ArTest,
+    // ArTest,
     ArTest2,
   },
 });
@@ -26,5 +26,8 @@ export default defineComponent({
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+video {
+  display: block !important;
 }
 </style>
