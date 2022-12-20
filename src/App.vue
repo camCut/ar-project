@@ -1,6 +1,6 @@
 <template>
  <div class="">
- <ArTest3 v-if="true"/>
+ <ArTest2 v-if="true"/>
  </div>
 </template>
 
@@ -14,7 +14,7 @@ export default defineComponent({
   name: "App",
   components: {
     // ArTest,
-    ArTest3,
+    ArTest2,
   },
 });
 </script>

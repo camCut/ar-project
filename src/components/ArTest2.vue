@@ -5,6 +5,7 @@
 </template>
 
 <script>
+//model not visible
 import { defineComponent, onMounted, ref } from "vue";
 import * as THREE from 'three';
 import * as THREEx from '../../node_modules/@ar-js-org/ar.js/three.js/build/ar-threex-location-only.js';
