@@ -14,7 +14,6 @@ import ArTest4 from "./components/ArTest4.vue";
 export default defineComponent({
   name: "App",
   components: {
-    // ArTest,
     ArTest4,
   },
 });

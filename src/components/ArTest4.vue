@@ -15,6 +15,7 @@
   
   <script>
 import { defineComponent, onMounted, ref } from "vue";
+
 export default defineComponent({
   name: "ArTest4",
   setup() {
@@ -25,12 +26,15 @@ export default defineComponent({
       let testEntityAdded = false;
 
       const el = document.querySelector("[gps-new-camera]");
+      const scene = document.querySelector("a-scene")
+
+
 
       el.addEventListener("gps-camera-update-position", (e) => {
         if (!testEntityAdded) {
           // alert(`Got first GPS position: lon ${e.detail.position.longitude} lat ${e.detail.position.latitude}`);
 
-          // // Add a box
+          // Add a box
           const box = document.createElement("a-box");
           box.setAttribute("scale", {
             x: 200,
@@ -44,7 +48,7 @@ export default defineComponent({
           });
           document.querySelector("a-scene").appendChild(box);
 
-          // Add a model
+          // Add a triceratops
           const model = document.createElement("a-entity");
           model.setAttribute(
             "gltf-model",
@@ -63,6 +67,8 @@ export default defineComponent({
           });
           document.querySelector("a-scene").appendChild(model);
 
+
+          // Add Text
           const compoundEntity = document.createElement("a-entity");
           compoundEntity.setAttribute("gps-new-entity-place", {
             latitude: e.detail.position.latitude + 0.001,
@@ -83,6 +89,10 @@ export default defineComponent({
           compoundEntity.appendChild(text);
           document.querySelector("a-scene").appendChild(compoundEntity);
         }
+
+
+
+        
         testEntityAdded = true;
       });
     });

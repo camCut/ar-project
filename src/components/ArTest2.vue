@@ -13,7 +13,6 @@ import * as THREEx from '../../node_modules/@ar-js-org/ar.js/three.js/build/ar-t
 export default defineComponent({
   name: "ArTest2",
  setup() {
-    // const canvas: any = document.getElementById('canvas');
     const canvas = ref();
 
     
@@ -32,12 +31,12 @@ const box = new THREE.Mesh(geom, mtl);
 const deviceOrientationControls = new THREEx.DeviceOrientationControls(camera);
 
 // Change this to a location close to you (e.g. 0.001 degrees of latitude north of you)
-arjs.add(box, 8.647390, 50.085953); 
-arjs.fakeGps(8.647390, 50.085953)
+arjs.add(box, -0.72, 51.051); 
+arjs.fakeGps(-0.72, 51.05);
 
 // arjs.startGps();
 
-requestAnimationFrame(render);
+// requestAnimationFrame(render);
 
 function render() {
     if(canvas.value.width != canvas.value.clientWidth || canvas.value.height != canvas.value.clientHeight) {
@@ -57,10 +56,10 @@ function render() {
 
 
     onMounted(( )=> {
+      console.log('canvas.value', canvas.value);
       if(canvas.value) {
         requestAnimationFrame(render);
 
-        console.log(document.querySelector('a-scene'));
       }
     })
 
