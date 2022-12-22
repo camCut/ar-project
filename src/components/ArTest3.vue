@@ -40,7 +40,7 @@
   <script>
 import { defineComponent, onMounted, ref } from "vue";
 export default defineComponent({
-  name: "ArTest2",
+  name: "ArTest3",
   setup() {
     //https://ar-js-org.github.io/AR.js-Docs/location-based-aframe/
     const canvas = ref();

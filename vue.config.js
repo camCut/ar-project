@@ -1,7 +1,7 @@
 const { defineConfig } = require("@vue/cli-service");
 module.exports = defineConfig({
   transpileDependencies: true,
-  devServer: {https: true },
+  devServer: {server: "https" },
   chainWebpack: config => {
     config.module
       .rule('vue')
