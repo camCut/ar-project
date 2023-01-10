@@ -1,12 +1,12 @@
 <template>
   <div class="hello">
-    <a-scene
+    <a-scene id="a-scene"
       vr-mode-ui="enabled: false"
       arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false"
       renderer="antialias: true; alpha: true"
     >
       <a-camera
-        arjs-look-controls="smoothingFactor: 0.1"
+        arjs-device-orientation-controls='smoothingFactor: 0.3'
         gps-new-camera="gpsMinDistance: 5"
       ></a-camera>
     </a-scene>
@@ -20,13 +20,10 @@ export default defineComponent({
   name: "ArTest4",
   setup() {
     //https://ar-js-org.github.io/AR.js-Docs/location-based-aframe/
-    const canvas = ref();
-
     onMounted(() => {
       let testEntityAdded = false;
 
       const el = document.querySelector("[gps-new-camera]");
-      const scene = document.querySelector("a-scene")
 
 
 
@@ -41,11 +38,14 @@ export default defineComponent({
             y: 200,
             z: 200,
           });
-          box.setAttribute("material", { color: "red" });
+          box.setAttribute("material", { color: "yellow" });
           box.setAttribute("gps-new-entity-place", {
-            latitude: e.detail.position.latitude - 0.005,
+            latitude: e.detail.position.latitude -0.005,
             longitude: e.detail.position.longitude +0.01,
           });
+            // box.setAttribute("position", "0 50 50");
+
+
           document.querySelector("a-scene").appendChild(box);
 
           // Add a triceratops
@@ -90,17 +90,14 @@ export default defineComponent({
           document.querySelector("a-scene").appendChild(compoundEntity);
         }
 
-
-
-        
         testEntityAdded = true;
+
+
       });
+    console.log(document.getElementById('a-scene'));
     });
 
-    function test() {
-      console.log("loaded");
-    }
-    return { canvas, test };
+    return {  };
   },
 });
 </script>

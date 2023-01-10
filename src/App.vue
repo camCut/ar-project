@@ -1,5 +1,5 @@
 <template>
- <div class="">
+ <div >
  <ArTest4 v-if="true"/>
  </div>
 </template>
