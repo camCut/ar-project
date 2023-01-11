@@ -128,6 +128,7 @@ export default defineComponent({
           // text.setAttribute("align", "center");
           // compoundEntity.appendChild(text);
           // document.querySelector("a-scene").appendChild(compoundEntity);
+
         }
 
         testEntityAdded = true;

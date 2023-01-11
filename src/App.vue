@@ -1,6 +1,6 @@
 <template>
  <div >
- <ArTest4 v-if="true"/>
+ <ArTest5 v-if="true"/>
  </div>
 </template>
 
@@ -10,11 +10,12 @@ import ArTest from "./components/ArTest.vue";
 import ArTest2 from "./components/ArTest2.vue";
 import ArTest3 from "./components/ArTest3.vue";
 import ArTest4 from "./components/ArTest4.vue";
+import ArTest5 from "./components/ArTest5.vue";
 
 export default defineComponent({
   name: "App",
   components: {
-    ArTest4,
+    ArTest5,
   },
 });
 </script>
