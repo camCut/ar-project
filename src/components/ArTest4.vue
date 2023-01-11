@@ -13,81 +13,121 @@
   </div>
 </template>
   
-  <script>
+  <script >
 import { defineComponent, onMounted, ref } from "vue";
 
 export default defineComponent({
   name: "ArTest4",
   setup() {
+
+    //NOTE:
     //https://ar-js-org.github.io/AR.js-Docs/location-based-aframe/
-    onMounted(() => {
-      let testEntityAdded = false;
-
-      const el = document.querySelector("[gps-new-camera]");
+    // TIZ: 49.8709868, 8.64242236
+    // Frankfurt Niederrad: 50.0734195, 8.6361502
 
 
-
-      el.addEventListener("gps-camera-update-position", (e) => {
-        if (!testEntityAdded) {
-          // alert(`Got first GPS position: lon ${e.detail.position.longitude} lat ${e.detail.position.latitude}`);
-
-          // Add a box
+    function addBox(coords, scale, position, color) {
+      // Add a box southeast of the current location
           const box = document.createElement("a-box");
           box.setAttribute("scale", {
-            x: 200,
-            y: 200,
-            z: 200,
+            x: scale[0],
+            y: scale[1],
+            z: scale[2],
           });
-          box.setAttribute("material", { color: "yellow" });
+          box.setAttribute("material", { color: color });  
+          // box.setAttribute("metalness", 1)
           box.setAttribute("gps-new-entity-place", {
-            latitude: e.detail.position.latitude -0.005,
-            longitude: e.detail.position.longitude +0.01,
+            latitude: coords[0],
+            longitude: coords[1]
           });
-            // box.setAttribute("position", "0 50 50");
-
-
+          // position the model 10m below camera position
+            box.setAttribute("position", position);
           document.querySelector("a-scene").appendChild(box);
-
-          // Add a triceratops
-          const model = document.createElement("a-entity");
+    }
+    function addModel(url, coords, scale, position) {
+      const model = document.createElement("a-entity");
           model.setAttribute(
             "gltf-model",
-            // "url(https://cdn.aframe.io/test-models/models/glTF-2.0/virtualcity/VC.gltf)"
-            "url(https://cdn.aframe.io/examples/ar/models/triceratops/scene.gltf)"
-            // "url(../assets/models/table.glb)"
+            `url(${url})`
           );
           model.setAttribute("scale", {
-            x: 0.5,
-            y: 0.5,
-            z: 0.5,
+            x: scale[0],
+            y: scale[1],
+            z: scale[2],
           });
           model.setAttribute("gps-new-entity-place", {
-            latitude: e.detail.position.latitude - 0.0001,
-            longitude: e.detail.position.longitude +0.001,
+            latitude: coords[0],
+            longitude: coords[1],
           });
+            model.setAttribute("position", position);
+          
           document.querySelector("a-scene").appendChild(model);
+    }
 
-
-          // Add Text
-          const compoundEntity = document.createElement("a-entity");
+    function addText(text, coords, textScale, position, lookAtCamera) {
+      const compoundEntity = document.createElement("a-entity");
           compoundEntity.setAttribute("gps-new-entity-place", {
-            latitude: e.detail.position.latitude + 0.001,
-            longitude: e.detail.position.longitude,
+            latitude: coords[0],
+            longitude: coords[1],
           });
-          const text = document.createElement("a-text");
+          const textEl = document.createElement("a-text");
 
-          const textScale = 100;
-
-          text.setAttribute("look-at", "[gps-new-camera]");
-          text.setAttribute("scale", {
+          if(lookAtCamera) {
+            textEl.setAttribute("look-at", "[gps-new-camera]");
+          }
+          textEl.setAttribute("scale", {
             x: textScale,
             y: textScale,
             z: textScale,
           });
-          text.setAttribute("value", "If you can read this..");
-          text.setAttribute("align", "center");
-          compoundEntity.appendChild(text);
+          textEl.setAttribute("position", position);
+
+          textEl.setAttribute("value",text);
+          textEl.setAttribute("align", "center");
+          compoundEntity.appendChild(textEl);
           document.querySelector("a-scene").appendChild(compoundEntity);
+    }
+    onMounted(() => {
+       navigator.geolocation.getCurrentPosition((position) => {
+
+        console.log(position.coords.latitude);
+        console.log(position.coords.longitude);
+
+       })
+      let testEntityAdded = false;
+      const el = document.querySelector("[gps-new-camera]");
+
+      el.addEventListener("gps-camera-update-position", (e) => {
+        console.log(e.detail.position.latitude);
+        console.log(e.detail.position.longitude);
+        if (!testEntityAdded) {
+          // alert(`Got first GPS position: lon ${e.detail.position.longitude} lat ${e.detail.position.latitude}`);
+
+          // Add a box southeast of the current location
+
+          addBox([e.detail.position.latitude -0.00001, e.detail.position.longitude +0.0005], [25,25,25], "[0,-10, 0]", 'purple')
+          addModel('https://cdn.aframe.io/examples/ar/models/triceratops/scene.gltf', [e.detail.position.latitude -0.00001, e.detail.position.longitude +0.0005], [25,25,25], "[0,-10, 0]")
+          addText('TestText', [e.detail.position.latitude -0.001, e.detail.position.longitude +0.005], 100, "[0,0, 0]", true);
+          // // Add Text
+          // const compoundEntity = document.createElement("a-entity");
+          // compoundEntity.setAttribute("gps-new-entity-place", {
+          //   latitude: 49.870893,
+          //   longitude: 8.623744,
+          // });
+          // const text = document.createElement("a-text");
+
+          // const textScale = 100;
+
+          // text.setAttribute("look-at", "[gps-new-camera]");
+          // text.setAttribute("scale", {
+          //   x: textScale,
+          //   y: textScale,
+          //   z: textScale,
+          // });
+          // text.setAttribute("value", e.detail.position.latitude, e.detail.position.longitude);
+          // text.setAttribute("align", "center");
+          // compoundEntity.appendChild(text);
+          // document.querySelector("a-scene").appendChild(compoundEntity);
         }
 
         testEntityAdded = true;
@@ -97,7 +137,7 @@ export default defineComponent({
     console.log(document.getElementById('a-scene'));
     });
 
-    return {  };
+    return {   };
   },
 });
 </script>
