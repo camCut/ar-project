@@ -1,6 +1,6 @@
 import {createApp} from 'vue';
 import App from './App.vue';
-import ArComponent from "./components/ArComponent.vue";
+import ArComponent from "./components/ArComponentLocation.vue";
 
 import {createRouter, createWebHashHistory} from 'vue-router';
 
