@@ -1,7 +1,6 @@
 import {createApp} from 'vue';
 import App from './App.vue';
-import ArComponent from "./components/ArComponentLocation.vue";
-
+import ArComponent from "./components/ArComponentImage.vue";
 import {createRouter, createWebHashHistory} from 'vue-router';
 
 const routes = [

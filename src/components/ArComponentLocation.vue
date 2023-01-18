@@ -16,6 +16,7 @@
   
   <script >
 import { defineComponent, onMounted} from "vue";
+// import '@ar-js-org/ar.js/aframe/build/aframe-ar'
 
 export default defineComponent({
   name: "ArTest4",
@@ -145,7 +146,7 @@ export default defineComponent({
             "0 40 0 ",
             "blue"
           );
-          // addModel('https://cdn.aframe.io/examples/ar/models/triceratops/scene.gltf', [e.detail.position.latitude -0.00001, e.detail.position.longitude +0.0005], [25,25,25], "[0,-10, 0]")
+          addModel('https://cdn.aframe.io/examples/ar/models/triceratops/scene.gltf', [e.detail.position.latitude -0.001, e.detail.position.longitude +0.05], [25,25,25], "[0,-10, 0]")
          addText("Messeturm",[e.detail.position.latitude +0.001, e.detail.position.longitude +0.0001], 100, "[0 0 0]", true)
           
         }
