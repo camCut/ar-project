@@ -8,7 +8,7 @@ import {createRouter, createWebHashHistory} from 'vue-router';
 const routes = [
   {
     name:"LocationBased",
-    path: '/locationbased',
+    path: '/',
     component: LocationBased,
     // props: (route: any) => ({orientation: Number(route.query.orientation)}),
   },
