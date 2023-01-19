@@ -16,7 +16,6 @@
   
   <script >
 import { defineComponent, onMounted} from "vue";
-// import '@ar-js-org/ar.js/aframe/build/aframe-ar'
 
 export default defineComponent({
   name: "ArTest4",

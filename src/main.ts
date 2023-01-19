@@ -1,13 +1,22 @@
 import {createApp} from 'vue';
 import App from './App.vue';
-import ArComponent from "./components/ArComponentImage.vue";
+import ImageBased from "./components/ArComponentImageAframe.vue";
+import LocationBased from "./components/ArComponentLocation.vue";
 import {createRouter, createWebHashHistory} from 'vue-router';
+// require('aframe')
 
 const routes = [
   {
-    path: '/',
-    component: ArComponent,
-    props: (route: any) => ({orientation: Number(route.query.orientation)}),
+    name:"LocationBased",
+    path: '/locationbased',
+    component: LocationBased,
+    // props: (route: any) => ({orientation: Number(route.query.orientation)}),
+  },
+  {
+    name:"MarkerBased",
+    path: '/markerbased',
+    component: ImageBased,
+    // props: (route: any) => ({orientation: Number(route.query.orientation)}),
   },
 ];
 
