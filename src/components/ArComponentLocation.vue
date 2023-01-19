@@ -17,6 +17,9 @@
   <script >
 import { defineComponent, onMounted} from "vue";
 
+// import 'aframe/dist/aframe-v1.0.4.js'
+// import '@ar-js-org/ar.js/aframe/build/aframe-ar.js'
+
 export default defineComponent({
   name: "ArTest4",
   props: { orientation: { type: Number, required: false, default: 0 } },
@@ -105,6 +108,36 @@ export default defineComponent({
         if (!testEntityAdded) {
           // alert(`Got first GPS position: lon ${e.detail.position.longitude} lat ${e.detail.position.latitude}`);
 
+
+          //NOTE: Darmstadt
+                    // Add a box @ESA Pförtnerhaus
+          addBox(
+            [49.8709078,8.6240345],
+            [25, 250, 25],
+            "[0 0 0]",
+            "0 45 0",
+            "red"
+          );
+          // Add a box @HBF
+
+            addBox(
+            [49.8722896,8.6249977],
+            [250, 250, 250],
+            "[0 0 0]",
+            "0 45 0",
+            "red"
+          );
+
+          // Add a box @Epsilon
+
+            addBox(
+            [49.8709241,8.6239933],
+            [250, 25, 250],
+            "[0 0 0]",
+            "0 45 0",
+            "red"
+          );
+          //NOTE: FFM
           // Add a box @rotekirche ffm niederrad
           addBox(
             [50.0865022, 8.6441057],
