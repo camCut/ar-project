@@ -2,10 +2,10 @@
 
 <template>
   <div id="container">
-    <div class="row mt-5 w-50">
+    <!-- <div class="row mt-5 w-50" style="position: absolute; left: 500">
       <div class="col">
-        <button class="btn btn-secondary" @click="changeSphereColor">
-          Change sphere color
+        <button class="btn btn-secondary" @click="changePlaneColor">
+          Change plane color
         </button>
       </div>
       <div class="col">
@@ -13,7 +13,7 @@
           {{ trackerOpened ? "Close Tracking-Marker" : "Open Tracking-Marker" }}
         </button>
       </div>
-    </div>
+    </div> -->
 
     <img
       src="../assets/img/pattern-wdw-pattern.png"
@@ -44,7 +44,7 @@
           color="#ffff00"
           height="1"
           width="1"
-          opacity="0.5"
+          opacity="0.2"
           rotation="-90 0 0"
         ></a-plane>
         <!-- <a-box
@@ -101,7 +101,7 @@ export default {
     }
     function addText(value, scale, position, rotation) {
       const text = document.createElement("a-text");
-      text.setAttribute('align', 'center')
+      text.setAttribute("align", "center");
       text.setAttribute("value", value);
       text.setAttribute("scale", {
         x: scale[0],
@@ -118,7 +118,6 @@ export default {
         y: rotation[1],
         z: rotation[2],
       });
-
       document.querySelector("a-marker").appendChild(text);
     }
     function addBox(scale, position, rotation, color) {
@@ -147,8 +146,13 @@ export default {
     onMounted(() => {
       const el = document.querySelector("a-scene");
       el.addEventListener("markerFound", () => {
+        console.log('client', document.querySelector('video').clientHeight);
+        console.log('client', document.querySelector('video').clientWidth);
         console.log("marker found");
-        addBox([2.5, 2.5, 2.5], [0, 0, 0], [0, 0, 0], "#4CC3D9");
+        const videoStyle = document.querySelector('video')
+         document.querySelector("a-scene").setAttribute('style', `width: ${videoStyle.clientWidth};height: ${videoStyle.clientHeight}`)
+        
+        // // addBox([2.5, 2.5, 2.5], [0, 0, 0], [0, 0, 0], "#4CC3D9");
         addModel(
           "https://cdn.aframe.io/examples/ar/models/triceratops/scene.gltf",
           [0.01, 0.01, 0.01],
@@ -160,8 +164,8 @@ export default {
       });
     });
 
-    function changeSphereColor() {
-      const sphere = document.querySelector("a-sphere");
+    function changePlaneColor() {
+      const sphere = document.querySelector("a-plane");
       const color = sphere.getAttribute("color");
       sphere.setAttribute("color", color === "blue" ? "green" : "blue");
     }
@@ -169,7 +173,7 @@ export default {
     function openTrackingMarker() {
       trackerOpened.value = !trackerOpened.value;
     }
-    return { changeSphereColor, openTrackingMarker, trackerOpened };
+    return { changePlaneColor, openTrackingMarker, trackerOpened };
   },
 };
 </script>
@@ -183,4 +187,14 @@ button {
   position: fixed;
   z-index: 9999;
 }
+/* for embedded */
+/*
+a-scene {
+  width: 1264px;
+  height: 948px;
+}*/
+html.a-fullscreen .a-canvas {
+  position: relative !important;
+}
+
 </style>

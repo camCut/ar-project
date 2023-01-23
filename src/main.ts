@@ -4,7 +4,6 @@ import ImageBased from "./components/ArComponentImageAframe.vue";
 import LocationBased from "./components/ArComponentLocation.vue";
 import {createRouter, createWebHashHistory} from 'vue-router';
 // require('aframe')
-
 const routes = [
   {
     name:"LocationBased",
