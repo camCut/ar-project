@@ -33,11 +33,10 @@ export default defineComponent({
     function addBox(coords, scale, position, rotation, color) {
       // Add a box southeast of the current location
       const box = document.createElement("a-box");
-      box.setAttribute("scale", {
-        x: scale[0],
-        y: scale[1],
-        z: scale[2],
-      });
+            box.object3D.scale.set(scale[0], scale[1], scale[2]);
+      box.object3D.position.set(position[0], position[1], position[2]);
+      box.object3D.rotation.set(rotation[0], rotation[1], rotation[2]);
+
       box.setAttribute("material", { color: color });
       // box.setAttribute("metalness", 1)
       box.setAttribute("gps-new-entity-place", {
@@ -45,23 +44,19 @@ export default defineComponent({
         longitude: coords[1],
       });
       // position the model 10m below camera position
-      box.setAttribute("position", position);
-      box.setAttribute("rotation", rotation);
       document.querySelector("a-scene").appendChild(box);
     }
-    function addModel(url, coords, scale, position) {
+    function addModel(url, coords, scale, position, rotation) {
       const model = document.createElement("a-entity");
       model.setAttribute("gltf-model", `url(${url})`);
-      model.setAttribute("scale", {
-        x: scale[0],
-        y: scale[1],
-        z: scale[2],
-      });
+model.object3D.scale.set(scale[0], scale[1], scale[2]);
+      model.object3D.position.set(position[0], position[1], position[2]);
+      model.object3D.rotation.set(rotation[0], rotation[1], rotation[2]);
+      
       model.setAttribute("gps-new-entity-place", {
         latitude: coords[0],
         longitude: coords[1],
       });
-      model.setAttribute("position", position);
 
       document.querySelector("a-scene").appendChild(model);
     }
@@ -113,29 +108,29 @@ export default defineComponent({
                     // Add a box @ESA Pförtnerhaus
           addBox(
             [49.8709078,8.6240345],
-            [25, 250, 25],
+            [10, 100, 10],
             "[0 0 0]",
-            "0 45 0",
+            "0 0 0",
             "red"
           );
           // Add a box @HBF
 
             addBox(
             [49.8722896,8.6249977],
-            [250, 250, 250],
+            [10, 10, 10],
             "[0 0 0]",
-            "0 45 0",
-            "red"
+            "0 0 0",
+            "blue"
           );
 
           // Add a box @Epsilon
 
             addBox(
             [49.8709241,8.6239933],
-            [250, 25, 250],
+            [100, 10, 100],
             "[0 0 0]",
-            "0 45 0",
-            "red"
+            "0 0 0",
+            "green"
           );
           //NOTE: FFM
           // Add a box @rotekirche ffm niederrad
@@ -143,7 +138,7 @@ export default defineComponent({
             [50.0865022, 8.6441057],
             [25, 250, 25],
             "[0 0 0]",
-            "0 45 0",
+            "0 0 0",
             "red"
           );
           // Add a box @messeturm ffm
@@ -159,7 +154,7 @@ export default defineComponent({
             [50.086027, 8.653351],
             [250, 5, 250],
             "[0 -100  0]",
-            "0 40 0 ",
+            "0 0 0 ",
             "green"
           );
           // Add a box @waldstadion ffm 
@@ -167,7 +162,7 @@ export default defineComponent({
             [50.068432, 8.645136],
             [250, 50, 250],
             "[0 -100  0]",
-            "0 40 0 ",
+            "0 0 0 ",
             "white"
           );
           // Add a box @airport ffm 
@@ -175,11 +170,10 @@ export default defineComponent({
             [50.040898, 8.568414],
             [2500, 50, 2500],
             "[0 -100  0]",
-            "0 40 0 ",
+            "0 0 0 ",
             "blue"
           );
-          addModel('https://cdn.aframe.io/examples/ar/models/triceratops/scene.gltf', [e.detail.position.latitude -0.001, e.detail.position.longitude +0.05], [25,25,25], "[0,-10, 0]")
-         addText("Messeturm",[e.detail.position.latitude +0.001, e.detail.position.longitude +0.0001], 100, "[0 0 0]", true)
+          addModel('https://cdn.aframe.io/examples/ar/models/triceratops/scene.gltf', [e.detail.position.latitude -0.001, e.detail.position.longitude +0.05], [25,25,25], "[0,-10, 0]", "0 0 0")
           
         }
 

@@ -8,7 +8,6 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { useRouter } from "vue-router";
 import BaseMenu from "@/components/BaseMenu.vue";
 export default defineComponent({
   name: "App",
