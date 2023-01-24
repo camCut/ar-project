@@ -12,6 +12,9 @@ npm run serve
 
 Now you should be able to access the served files via the browser of your phone
 
+## upload to test-environment:
+`npm run build && rsync -ave ssh --delete dist/ localwdwrun:/u/data/testing_ar`
+
 
 TODO:
 api?

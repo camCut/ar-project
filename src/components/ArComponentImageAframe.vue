@@ -2,11 +2,13 @@
 
 <template>
   <div id="container">
-    <div class="d-flex button-bar">
+    <div class="d-flex gap-1 button-bar">
       <button class="btn btn-secondary" @click="rotateObject">
-          rotate Object
-        </button>
-
+        rotate Object
+      </button>
+      <button class="btn btn-secondary" @click="switchModel">
+        switch Object
+      </button>
     </div>
 
     <img
@@ -47,7 +49,7 @@
       </a-marker>  -->
 
       <a-entity id="rig" position="0 0 0">
-        <a-entity camera></a-entity>
+        <a-entity camera> </a-entity>
       </a-entity>
     </a-scene>
   </div>
@@ -65,16 +67,19 @@ export default {
       document.querySelector("a-scene").appendChild(marker);
     }
 
-    function addModel(url, scale, position, rotation, pattern) {
+    function addModel(url, scale, position, rotation, pattern, id) {
       const model = document.createElement("a-entity");
+      model.setAttribute("id", id);
       model.setAttribute("gltf-model", `url(${url})`);
       model.object3D.scale.set(scale[0], scale[1], scale[2]);
       model.object3D.position.set(position[0], position[1], position[2]);
       model.object3D.rotation.set(rotation[0], rotation[1], rotation[2]);
       document.getElementById(pattern).appendChild(model);
     }
-    function addText(value, scale, position, rotation, pattern) {
+    function addText(value, scale, position, rotation, pattern, id) {
       const text = document.createElement("a-text");
+      text.setAttribute("id", id);
+      text.setAttribute("color", "red");
       text.setAttribute("align", "center");
       text.setAttribute("value", value);
       text.object3D.scale.set(scale[0], scale[1], scale[2]);
@@ -83,8 +88,9 @@ export default {
 
       document.getElementById(pattern).appendChild(text);
     }
-    function addBox(scale, position, rotation, color, pattern) {
+    function addBox(scale, position, rotation, color, pattern, id) {
       const box = document.createElement("a-box");
+      box.setAttribute("id", id);
       box.object3D.scale.set(scale[0], scale[1], scale[2]);
       box.object3D.position.set(position[0], position[1], position[2]);
       box.object3D.rotation.set(rotation[0], rotation[1], rotation[2]);
@@ -101,11 +107,20 @@ export default {
         [0.01, 0.01, 0.01],
         [0, 0, 0],
         [0, 0, 0],
-        "pattern1"
+        "pattern1",
+        "model-pattern1"
       );
 
-      addText("Triceratops", [1, 1, 1], [0, 1.5, 0], [0, 0, 0], "pattern1");
-      addBox([1, 1, 1], [0, 0, 0], [0, 0, 0], "#4CC3D9", "pattern2");
+      addText("Triceratops", [1, 1, 1], [0, 1.5, 0], [0, 0, 0], "pattern1"),
+        "text-pattern1";
+      addBox(
+        [1, 1, 1],
+        [0, 0, 0],
+        [0, 0, 0],
+        "#4CC3D9",
+        "pattern2",
+        "box-pattern2"
+      );
       // const el = document.querySelector("a-scene");
       // el.addEventListener("markerFound", () => {
       //   console.log('client', document.querySelector('video').clientHeight);
@@ -132,14 +147,41 @@ export default {
       sphere.setAttribute("color", color === "blue" ? "green" : "blue");
     }
     function rotateObject() {
-     console.log(document.querySelector("[gltf-model]").object3D.rotation);
-     document.querySelector("[gltf-model]").object3D.rotation.y += 90
+      console.log(document.querySelector("[gltf-model]").object3D.rotation);
+      document.querySelector("[gltf-model]").object3D.rotation.y += 90;
     }
-    let trackerOpened = ref(false);
-    function openTrackingMarker() {
-      trackerOpened.value = !trackerOpened.value;
+    function switchModel() {
+      const element = document.getElementById("pattern2");
+      element.removeChild(element.firstElementChild);
+      const randomInt = Math.floor(Math.random() * 3);
+      randomInt == 0
+        ? addBox(
+            [1, 1, 1],
+            [0, 0, 0],
+            [0, 0, 0],
+            "red",
+            "pattern2",
+            "box-pattern2"
+          )
+        : randomInt == 1
+        ? addText(
+            "sampleText",
+            [1, 1, 1],
+            [0, 0, 0],
+            [0, 0, 0],
+            "pattern2",
+            "text-pattern2"
+          )
+        : addModel(
+            "https://cdn.aframe.io/examples/ar/models/triceratops/scene.gltf",
+            [0.01, 0.01, 0.01],
+            [0, 0, 0],
+            [0, 0, 0],
+            "pattern2",
+            "model-pattern2"
+          );
     }
-    return { changePlaneColor, openTrackingMarker, rotateObject };
+    return { changePlaneColor, rotateObject, switchModel };
   },
 };
 </script>
@@ -150,7 +192,6 @@ export default {
   color: #f00;
 }
 button {
-  position: fixed;
   z-index: 9999;
 }
 /* for embedded */
@@ -163,9 +204,8 @@ html.a-fullscreen .a-canvas {
   position: relative !important;
 }
 .button-bar {
-  background: grey;
   position: absolute;
-  top: 50px;
-  left:50%;
+  top: 10%;
+  left: 50%;
 }
 </style>

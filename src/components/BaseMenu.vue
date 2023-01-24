@@ -59,8 +59,6 @@ export default defineComponent({
     setup() {
     const router = useRouter();
 
-
-
     function removeBlackVideo() {
       const elements = document.getElementsByTagName("video");
       for (let item of elements) {
